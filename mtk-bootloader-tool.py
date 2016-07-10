@@ -11,7 +11,7 @@ DEVICE = sys.argv[1]
 
 CMD_GET_VERSION      = b"\xff" # this returns echo if security is off
 CMD_GET_BL_VER       = b"\xfe"
-CMD_GET_HW_SW_VER    = b"\xfc"
+CMD_GET_HW_VER       = b"\xfc"
 CMD_GET_HW_CODE      = b"\xfd"
 CMD_SEND_DA          = b"\xd7"
 CMD_JUMP_DA          = b"\xd5"
@@ -109,9 +109,11 @@ def boot_da2():
 
     resp = cmd_echo(CMD_GET_HW_CODE, 4)
     soc_id, soc_step = struct.unpack(">HH", resp)
-    print("SOC: %x, stepping?: %x" % (soc_id, soc_step))
+    print("Chip: %x, stepping?: %x" % (soc_id, soc_step))
 
-    resp = cmd_echo(CMD_GET_HW_SW_VER, 8)
+    resp = cmd_echo(CMD_GET_HW_VER, 8)
+    subver, ver, extra = struct.unpack(">HHI", resp)
+    print("Hardware version: %#x, subversion: %#x, extra: %#x" % (ver, subver, extra))
 
     write32(0x10007000, 1, [0x22000064])
 
