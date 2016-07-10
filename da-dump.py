@@ -29,10 +29,10 @@ num_socs = decode(f, 4, "I")[0]
 print("num_chips:", num_socs)
 
 PARTS = [
-    (5, 6),
-    (9, 10),
-    (14, 15),
-    (19, 20),
+    5,
+    9,
+    14,
+    19,
 ]
 
 for i in range(num_socs):
@@ -51,7 +51,6 @@ for i in range(num_socs):
 
 #    assert fields[10] == fields[12] + fields[13], (fields[10], fields[12], fields[13])
 
-    print("  da_part1_addr: 0x%08x" % fields[11])
-
-    for i, (off, sz) in enumerate(PARTS):
-        print("  da_part%d: [%#x, 0x%05x]  # %#x-%#x" % (i, fields[off], fields[sz], fields[off], fields[off] + fields[sz]))
+    print("  # file_offset, size, load_addr")
+    for i, no in enumerate(PARTS):
+        print("  da_part%d: [%#x, 0x%05x, 0x%08x]  # %#x-%#x" % (i, fields[no], fields[no + 1], fields[no + 2], fields[no], fields[no] + fields[no + 1]))
