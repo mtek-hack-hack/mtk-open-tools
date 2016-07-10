@@ -32,20 +32,24 @@ PARTS = [
     (5, 6),
     (9, 10),
     (14, 15),
+    (19, 20),
 ]
 
 for i in range(num_socs):
     rec = f.read(0xdc)
-    fields = struct.unpack("<2sHIIIIIIIQIIIIIIIIII140s", rec)
+    fields = struct.unpack("<2sHIIIIIIIQIIIIIIIIIIIII128s", rec)
     assert fields[0] == b'\xda\xda'
-    assert fields[-1] == b"\0" * 140
+#    assert fields[-1] == b"\0" * 128, fields[-1]
     fields = fields[1:-1]
     flds = ["0x%08x" % x if isinstance(x, int) else x for x in fields]
 
     print("- chip_id: %#x" % fields[0])
+    print("  chip_ver: %#x" % fields[1])
+    print("  fw_ver: %#x" % fields[2])
+    print("  extra_ver: %#x" % fields[3])
 #    print("  all_fields:", flds)
 
-    assert fields[10] == fields[12] + fields[13]
+#    assert fields[10] == fields[12] + fields[13], (fields[10], fields[12], fields[13])
 
     print("  da_part1_addr: 0x%08x" % fields[11])
 
