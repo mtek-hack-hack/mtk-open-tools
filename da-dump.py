@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #
 # This utility dumps information about supported chips from combined
-# download agent (DA) binary. Typical name of such bianry is
-# MTK_AllInOne_DA.bin, so other exist too.
+# download agent (DA) binary. A typical name of such binary is
+# MTK_AllInOne_DA.bin, though names can be used too.
 #
 import sys
 import struct
@@ -47,7 +47,7 @@ for i in range(num_socs):
     print("  chip_ver: %#x" % fields[1])
     print("  fw_ver: %#x" % fields[2])
     print("  extra_ver: %#x" % fields[3])
-#    print("  all_fields:", flds)
+    print("  all_fields:", flds)
 
 #    assert fields[10] == fields[12] + fields[13], (fields[10], fields[12], fields[13])
 
